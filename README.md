@@ -1,2 +1,0 @@
-# makeathon
-Created with CodeSandbox
