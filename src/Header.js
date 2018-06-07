@@ -9,12 +9,19 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import MenuIcon from '@material-ui/icons/Menu';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
+import Drawer from '@material-ui/core/Drawer';
 
 class ButtonAppBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchorEl: null
+      anchorEl: null,
+      drawer :false
     };
   }
 
@@ -31,13 +38,52 @@ class ButtonAppBar extends React.Component {
     this.props.setPageOpen(page);
   };
 
+  toggleDrawer(open) {
+    this.setState({drawer: open});
+  };
+
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    const sideList = (
+      <div style={{width: 250}}>
+        <List>
+          <div>
+            <ListItem button>
+              <ListItemText primary="Dashboard" onClick={this.handleMenuChanged.bind(this,"dashboard")}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemText primary="Configurations" onClick={this.handleMenuChanged.bind(this,"configurations")}/>
+            </ListItem>
+            <ListItem button>
+              <ListItemText primary="Orders" onClick={this.handleMenuChanged.bind(this,"orders")}/>
+            </ListItem>
+          </div>
+        </List>
+      </div>
+    );
+
     return (
       <div style={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
+            {this.props.isLoggedIn &&
+            <div>
+            <IconButton style={{marginLeft: -12,marginRight: 20,}} color="inherit" aria-label="Menu" onClick={this.toggleDrawer.bind(this,true)}>
+              <MenuIcon />
+            </IconButton>
+            <Drawer open={this.state.drawer} onClose={this.toggleDrawer.bind(this,false)}>
+              <div
+                tabIndex={0}
+                role="button"
+                onClick={this.toggleDrawer.bind(this,false)}
+                onKeyDown={this.toggleDrawer.bind(this,false)}
+              >
+                {sideList}
+              </div>
+            </Drawer>
+            </div>
+            }
             <Typography
               variant="title"
               color="inherit"

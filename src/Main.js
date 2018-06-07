@@ -12,7 +12,7 @@ class MainPage extends React.Component {
     super(props);
 
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
       pageOpen: "dashboard"
     };
 

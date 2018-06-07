@@ -31,7 +31,7 @@ class LoginPage extends React.Component {
   }
 
   logIn() {
-    if(this.state.userName == 'User' && this.state.password=='password') {
+    if(this.state.userName.toLocaleLowerCase() == 'user' && this.state.password == 'password') {
       this.props.logIn();
     }
     else {
@@ -55,40 +55,45 @@ class LoginPage extends React.Component {
         <Grid container spacing={8}>
           <Grid item xs={2} sm={3} md={4} lg={5} />
           <Grid item xs={8} sm={6} md={4} lg={2}>
-            <FormControl style={{ width: "100%" }}>
-              <InputLabel htmlFor="userName">Username</InputLabel>
-              <Input
-                style={{ width: "100%" }}
-                fullWidth={true}
-                id="userName"
-                type="text"
-                onChange={this.onUserNameChange.bind(this)}
-              />
-            </FormControl>
-            <FormControl style={{ width: "100%" }}>
-              <InputLabel htmlFor="adornment-password">Password</InputLabel>
-              <Input
-                style={{ width: "100%" }}
-                fullWidth={true}
-                id="adornment-password"
-                type="password"
-                onChange={this.onPasswordChange.bind(this)}
-              />
-            </FormControl>
-            <br />
-            <br />
-            <FormControl>
-              <Button
-                type='submit'
-                variant="contained"
-                color="primary"
-                onClick={this.logIn.bind(this)}
-              >
-                Login
-              </Button>
-            </FormControl>
+            <form onSubmit={this.logIn.bind(this)}>
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel htmlFor="userName">Username</InputLabel>
+                <Input
+                  style={{ width: "100%" }}
+                  fullWidth={true}
+                  id="userName"
+                  type="text"
+                  onChange={this.onUserNameChange.bind(this)}
+                />
+              </FormControl>
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel htmlFor="adornment-password">Password</InputLabel>
+                <Input
+                  style={{ width: "100%" }}
+                  fullWidth={true}
+                  id="adornment-password"
+                  type="password"
+                  onChange={this.onPasswordChange.bind(this)}
+                />
+              </FormControl>
+              <br />
+              <br />
+              <FormControl>
+                <Button
+                  type='submit'
+                  variant="contained"
+                  color="primary"
+                  
+                >
+                  Login
+                </Button>
+              </FormControl>
+        </form>
+            
           </Grid>
+          
           <Grid item xs={2} sm={3} md={4} lg={5} />
+          
         </Grid>
         <Snackbar
           anchorOrigin={{

@@ -13,25 +13,7 @@ class Configurations extends React.Component {
     super(props);
 
     this.state = {
-      configurations: [
-        new ItemConfiguration(
-          "Milk",
-          10,
-          3,
-          "yourshopper",
-          "automatic",
-          "immediate"
-        ),
-        new ItemConfiguration(
-          "Beer",
-          12,
-          4,
-          "yourshopper",
-          "automatic",
-          "12:00"
-        ),
-        new ItemConfiguration("Eggs", 12, 6, "yourshopper", "manual", null)
-      ]
+      configurations: []
     };
   }
 
@@ -51,7 +33,9 @@ class Configurations extends React.Component {
             config.vendorName
           )
         );
-
+        configurations.sort(function(a, b) {
+          return a.item > b.item;
+      });
         this.setState({configurations});
       })
   }
@@ -114,6 +98,11 @@ class Configurations extends React.Component {
                     margin="normal"
                   />
               </Grid>
+              <Grid item xs={4}>
+                <div style={{paddingTop:'20px'}}>
+                  {config.promotion}
+                </div>
+              </Grid>
             </Grid>
           </CardContent>
         </Card>
@@ -151,14 +140,16 @@ class ItemConfiguration {
     item,
     maximum,
     minimum,
-    dealer = "yourshopper",
-    orderStrategy = "manual"
+    dealer = "Amazon"
   ) {
     this.item = item;
     this.maximum = maximum;
     this.minimum = minimum;
     this.dealer = dealer;
-    this.orderStrategy = orderStrategy;
+    this.orderStrategy = item=='Coke'?'Automatic' :'Manual' ;
+    this.promotion = item == 'Coke' ? 'There is Buy 2 Get 1 Free offer on Flipkart' : 
+                     item == 'Eggs' ? 'Eggs are provided at BigBasket at 20% Off. Use promocode EGGS20' :
+                     'You already have best deal'
   }
 }
 

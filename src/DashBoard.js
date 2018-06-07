@@ -2,7 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
-// import CardContent from "@material-ui/core/CardContent";
 import axios from 'axios'
 import constants from './constants.js';
 
@@ -15,12 +14,9 @@ class DashBoard extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.getData();
-  }
-
   componentDidMount(){
-    this.interval = setInterval(this.getData.bind(this),3000);
+    this.getData();
+    this.interval = setInterval(this.getData.bind(this),2000);
   }
 
   componentWillUnmount() {
@@ -31,6 +27,9 @@ class DashBoard extends React.Component {
       axios.get(constants.holdingsApiUrl)
         .then(response => {
           const holdings = response.data;
+          holdings.sort(function(a, b) {
+            return a.name > b.name;
+        });
           this.setState({holdings});
         })
   }
